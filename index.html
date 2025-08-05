@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
-    fetch(`${URL}?acao=profissionais`).then(res => res.json()).then(data => {
+    fetch(`${URL}?acao=servidores`).then(res => res.json()).then(data => {
       servidores = data;
       const lista = document.getElementById('listaProfissionais');
       lista.innerHTML = '';
