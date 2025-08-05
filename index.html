@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('profissional').addEventListener('input', () => {
       const nomeDigitado = profissional.value.trim().toUpperCase();
-      const p = profissionais.find(p => p.nome.trim().toUpperCase() === nomeDigitado);
+      const p = servidores.find(p => p.nome.trim().toUpperCase() === nomeDigitado);
 
       if (p) {
         funcao.value = p.funcao || '';
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
           btn.disabled = false;
           btn.textContent = 'Salvar';
           loading.style.display = 'none';
-          carregarLancamentos();
+          carregarRegistros();
         }, 1500);
       });
     });
@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         loading.style.display = 'none';
         filtroStatus.value = 'PENDENTE';
-        carregarLancamentos();
+        carregarRegistros();
       }, 2000);
     });
   </script>
