@@ -180,7 +180,7 @@
     const URL = 'https://script.google.com/macros/s/AKfycbxLxl-FL5_6J06gBULz0QcaCGMovJ1opY9_5UG6vNDv0L_-KyCvAOPkN_F9Cy0cZHJW0Q/exec';
     const form = document.getElementById('form');
     const filtroStatus = document.getElementById('filtroStatus');
-    let profissionais = [], dadosLancamentos = [];
+    let servidores = [], dadosRegistros = [];
 
   function proximaSegunda(dataRef = new Date()) {
     const dia = dataRef.getDay(); // 0 = domingo, 1 = segunda, ..., 6 = sábado
@@ -208,8 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
-    fetch(`${URL}?acao=profissionais`).then(res => res.json()).then(data => {
-      profissionais = data;
+    fetch(`${URL}?acao=servidores`).then(res => res.json()).then(data => {
+      servidores = data;
       const lista = document.getElementById('listaProfissionais');
       lista.innerHTML = '';
       data.forEach(p => {
@@ -297,11 +297,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    filtroStatus.addEventListener('change', carregarLancamentos);
+   filtroStatus.addEventListener('change', carregarRegistros);
 
-    function carregarLancamentos() {
-      fetch(`${URL}?acao=ler`).then(res => res.json()).then(data => {
-        dadosLancamentos = data;
+    function carregarRegistros() {
+  fetch(`${URL}?acao=ler`).then(res => res.json()).then(data => {
+        dadosRegistros = data;
         const tbody = document.querySelector('#tabela tbody');
         tbody.innerHTML = '';
         const filtro = filtroStatus.value || 'PENDENTE';
@@ -377,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (!confirm(`Deseja marcar todos os registros com status "${filtro}" como PAGO?`)) return;
 
-      const promessas = dadosLancamentos.filter(item => item.status === filtro).map(item =>
+      const promessas = dadosRegistros.filter(item => item.status === filtro).map(item =>
         fetch(URL, {
           method: 'POST',
           body: JSON.stringify({ acao: 'atualizarStatus', index: item.index, status: 'PAGO' })
